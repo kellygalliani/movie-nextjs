@@ -9,7 +9,7 @@ export default async function handler(
   if (req.method !== "GET") res.status(405).end();
 
   try {
-    await serverAuth(req);
+    await serverAuth(req, res);
 
     const movies = await prismadb.movie.findMany();
 
