@@ -44,12 +44,12 @@ const Auth = () => {
   }, [email, name, password]);
 
   return (
-    <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-cover">
+    <div className="relative w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center">
       <div className="bg-black w-full h-full lg:bg-opacity-50">
         <nav className="px-12 py-5">
           <img src="/images/logo.png" alt="logo" className="h-12" />
         </nav>
-        <div className="flex justify-center">
+        <div className="flex justify-center py-8">
           <div className="bg-black/70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
             <h2 className="text-white text-4xl mb-8 font-semibold">
               {variant === "login" ? "Sign in" : "Register"}
@@ -103,7 +103,7 @@ const Auth = () => {
                 <FaGithub size={30} />
               </div>
             </div>
-            <p className="text-neutral-500 mt-12">
+            <p className="text-neutral-500 mt-5">
               {variant === "login"
                 ? "First time using netflix?"
                 : "Already have an account?"}
