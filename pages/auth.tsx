@@ -1,9 +1,9 @@
 import axios from "axios";
-import Input from "@/components/input";
 import React, { useCallback, useState } from "react";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import Input from "@/components/Input";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -44,7 +44,7 @@ const Auth = () => {
   }, [email, name, password]);
 
   return (
-    <div className="relative w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center">
+    <div className="relative w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-cover">
       <div className="bg-black w-full h-full lg:bg-opacity-50">
         <nav className="px-12 py-5">
           <img src="/images/logo.png" alt="logo" className="h-12" />
