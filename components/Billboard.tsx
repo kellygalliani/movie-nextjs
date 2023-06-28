@@ -1,4 +1,3 @@
-"client server";
 import useBillboard from "@/hooks/useBilboard";
 import React, { useCallback } from "react";
 import { AiOutlineInfo, AiOutlineInfoCircle } from "react-icons/ai";
@@ -6,12 +5,17 @@ import PlayButton from "./PlayButton";
 import useInfoModal from "@/hooks/useInfoModal";
 
 const BillBoard = () => {
-  const { data } = useBillboard();
+  const { data, isLoading } = useBillboard();
   const { openModal } = useInfoModal();
 
   const handleOpenModal = useCallback(() => {
     openModal(data?.id);
   }, [openModal, data?.id]);
+
+  if (isLoading) {
+    return <div>Is Loading...</div>;
+  }
+
   return (
     <div className="relative h-[56.25vm]">
       <video
@@ -27,7 +31,7 @@ const BillBoard = () => {
         loop
         poster={data?.thumbnailUrl}
         src={data?.videoUrl}
-      ></video>
+      />
       <div className="absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
         <p
           className="
