@@ -8,7 +8,7 @@ interface AccountMenuProps {
 
 const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
   const { data } = useCurrentUser();
-  console.log(data);
+
   if (!visible) {
     return null;
   }

@@ -8,7 +8,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    console.log(req.body, "FORA");
     if (req.method === "POST") {
       const { currentUser } = await serverAuth(req, res);
       const { movieId } = req.body;
@@ -40,7 +39,6 @@ export default async function handler(
       const { currentUser } = await serverAuth(req, res);
 
       const { movieId } = req.body;
-      console.log(movieId);
 
       const existingMovie = await prismadb.movie.findUnique({
         where: {
