@@ -1,50 +1,31 @@
-import useBillboard from "@/hooks/useBilboard";
 import React, { useCallback } from "react";
-import { AiOutlineInfoCircle } from "react-icons/ai";
-import PlayButton from "./PlayButton";
-import useInfoModal from "@/hooks/useInfoModal";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
-const BillBoard = () => {
-  const { data, isLoading } = useBillboard();
-  const { openModal } = useInfoModal();
+import PlayButton from "@/components/PlayButton";
+
+import useInfoModalStore from "@/hooks/useInfoModal";
+import useBillboard from "@/hooks/useBilboard";
+
+const Billboard: React.FC = () => {
+  const { openModal } = useInfoModalStore();
+  const { data } = useBillboard();
 
   const handleOpenModal = useCallback(() => {
     openModal(data?.id);
   }, [openModal, data?.id]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="relative h-[56.25vm]">
+    <div className="relative h-[56.25vw]">
       <video
-        className="
-        w-full
-        h-[56.25vw]
-        min-h-[189px]
-        object-cover
-        brightnes-[60%]
-        "
+        poster={data?.thumbnailUrl}
+        className="w-full h-[56.25vw] object-cover brightness-[60%] transition duration-500"
         autoPlay
         muted
         loop
-        poster={data?.thumbnailUrl}
         src={data?.videoUrl}
-      />
+      ></video>
       <div className="absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
-        <p
-          className="
-        text-white 
-        text-xl 
-        md:text-5xl 
-        h-full 
-        w-[80%] 
-        lg:w-[50%]
-        lg:text-6xl 
-        font-bold 
-        drop-shadow-xl"
-        >
+        <p className="text-white text-1xl md:text-5xl h-full w-[50%] lg:text-6xl font-bold drop-shadow-xl">
           {data?.title}
         </p>
         <p className="text-white text-[8px] md:text-lg mt-3 md:mt-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">
@@ -53,10 +34,25 @@ const BillBoard = () => {
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
           <PlayButton movieId={data?.id} />
           <button
-            className="bg-white/30 text-white rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-opacity-20 transition"
             onClick={handleOpenModal}
+            className="
+            bg-white
+            text-white
+              bg-opacity-30 
+              rounded-md 
+              py-1 md:py-2 
+              px-2 md:px-4
+              w-auto 
+              text-xs lg:text-lg 
+              font-semibold
+              flex
+              flex-row
+              items-center
+              hover:bg-opacity-20
+              transition
+            "
           >
-            <AiOutlineInfoCircle className="mr-1" />
+            <InformationCircleIcon className="w-4 md:w-7 mr-1" />
             More Info
           </button>
         </div>
@@ -64,5 +60,4 @@ const BillBoard = () => {
     </div>
   );
 };
-
-export default BillBoard;
+export default Billboard;

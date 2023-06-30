@@ -1,12 +1,13 @@
-import BillBoard from "@/components/Billboard";
-import Navbar from "@/components/Navbar";
-import useMovieList from "@/hooks/useMovieList";
+import React from "react";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
+import Navbar from "@/components/Navbar";
+import Billboard from "@/components/Billboard";
 import MovieList from "@/components/MovieList";
-import useFavoriteMovies from "@/hooks/useFavoriteMovies";
 import InfoModal from "@/components/InfoModal";
-import useInfoModal from "@/hooks/useInfoModal";
+import useMovieList from "@/hooks/useMovieList";
+import useFavorites from "@/hooks/useFavorites";
+import useInfoModalStore from "@/hooks/useInfoModal";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -27,14 +28,14 @@ export async function getServerSideProps(context: NextPageContext) {
 
 const Home = () => {
   const { data: movies = [] } = useMovieList();
-  const { data: favorites = [] } = useFavoriteMovies();
-  const { isOpen, closeModal } = useInfoModal();
+  const { data: favorites = [] } = useFavorites();
+  const { isOpen, closeModal } = useInfoModalStore();
 
   return (
     <>
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
-      <BillBoard />
+      <Billboard />
       <div className="pb-40">
         <MovieList title="Trending Now" data={movies} />
         <MovieList title="My List" data={favorites} />

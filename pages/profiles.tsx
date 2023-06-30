@@ -1,12 +1,9 @@
-import React, { useCallback } from "react";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
-import useCurrentUser from "@/hooks/useCurrentUser";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
 
-interface UserCardProps {
-  name: string;
-}
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 const images = [
   "/images/default-blue.png",
@@ -15,8 +12,13 @@ const images = [
   "/images/default-green.png",
 ];
 
+interface UserCardProps {
+  name: string;
+}
+
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
+
   if (!session) {
     return {
       redirect: {
@@ -25,6 +27,7 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   }
+
   return {
     props: {},
   };
@@ -50,7 +53,7 @@ const UserCard: React.FC<UserCardProps> = ({ name }) => {
   );
 };
 
-const Profiles = () => {
+const App = () => {
   const router = useRouter();
   const { data: currentUser } = useCurrentUser();
 
@@ -74,4 +77,4 @@ const Profiles = () => {
   );
 };
 
-export default Profiles;
+export default App;
