@@ -25,12 +25,13 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 const Auth = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [variant, setVariant] = useState("login");
 
-  const router = useRouter();
+  const [variant, setVariant] = useState("login");
 
   const toggleVariant = useCallback(() => {
     setVariant((currentVariant) =>

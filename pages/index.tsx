@@ -19,12 +19,13 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   }
+
   return {
     props: {},
   };
 }
 
-export default function Home() {
+const Home = () => {
   const { data: movies = [] } = useMovieList();
   const { data: favorites = [] } = useFavoriteMovies();
   const { isOpen, closeModal } = useInfoModal();
@@ -35,9 +36,11 @@ export default function Home() {
       <Navbar />
       <BillBoard />
       <div className="pb-40">
-        <MovieList data={movies} title="Trending Now" />
-        <MovieList data={favorites} title="My List" />
+        <MovieList title="Trending Now" data={movies} />
+        <MovieList title="My List" data={favorites} />
       </div>
     </>
   );
-}
+};
+
+export default Home;

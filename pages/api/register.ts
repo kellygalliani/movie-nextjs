@@ -1,17 +1,18 @@
 import bcrypt from "bcrypt";
 import { NextApiRequest, NextApiResponse } from "next";
-import prismadb from "@/lib/prismadb";
+import prismadb from "../../lib/prismadb";
 
 export default async function handler(
-  request: NextApiRequest,
-  response: NextApiResponse
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
   try {
-    if (request.method !== "POST") {
-      return response.status(405).end();
+    if (req.method !== "POST") {
+      return res.status(405).end();
     }
 
-    const { email, name, password } = request.body;
+    const { email, name, password } = req.body;
+
     const existingUser = await prismadb.user.findUnique({
       where: {
         email,
@@ -19,10 +20,10 @@ export default async function handler(
     });
 
     if (existingUser) {
-      return response.status(422).json({ error: "Email already exists" });
+      return res.status(422).json({ error: "Email already exists" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = await prismadb.user.create({
       data: {
@@ -34,11 +35,8 @@ export default async function handler(
       },
     });
 
-    return response.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
-    console.error(error);
-    return response
-      .status(400)
-      .json({ error: `Something went wrong: ${error}` });
+    return res.status(400).json({ error: `Something went wrong: ${error}` });
   }
 }
