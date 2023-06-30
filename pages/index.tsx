@@ -2,7 +2,7 @@ import BillBoard from "@/components/Billboard";
 import Navbar from "@/components/Navbar";
 import useMovieList from "@/hooks/useMovieList";
 import { NextPageContext } from "next";
-import { getSession, signOut } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import MovieList from "@/components/MovieList";
 import useFavoriteMovies from "@/hooks/useFavoriteMovies";
 import InfoModal from "@/components/InfoModal";

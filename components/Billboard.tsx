@@ -1,6 +1,6 @@
 import useBillboard from "@/hooks/useBilboard";
 import React, { useCallback } from "react";
-import { AiOutlineInfo, AiOutlineInfoCircle } from "react-icons/ai";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import PlayButton from "./PlayButton";
 import useInfoModal from "@/hooks/useInfoModal";
 
@@ -13,7 +13,7 @@ const BillBoard = () => {
   }, [openModal, data?.id]);
 
   if (isLoading) {
-    return <div>Is Loading...</div>;
+    return <div>Loading...</div>;
   }
 
   return (

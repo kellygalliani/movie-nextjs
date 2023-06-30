@@ -6,10 +6,11 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  if (request.method != "POST") {
-    return response.status(405).end();
-  }
   try {
+    if (request.method !== "POST") {
+      return response.status(405).end();
+    }
+
     const { email, name, password } = request.body;
     const existingUser = await prismadb.user.findUnique({
       where: {
@@ -36,6 +37,8 @@ export default async function handler(
     return response.status(200).json(user);
   } catch (error) {
     console.error(error);
-    return response.status(400).end();
+    return response
+      .status(400)
+      .json({ error: `Something went wrong: ${error}` });
   }
 }
